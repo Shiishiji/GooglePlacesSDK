@@ -1,0 +1,7 @@
+{
+  "name": "shiishiji/google-places-sdk",
+  "version": "1.0.0",
+  "require": {
+    "monolog/monolog": "1.0.*"
+  }
+}
