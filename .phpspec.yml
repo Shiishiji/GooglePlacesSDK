@@ -1,0 +1,10 @@
+code_generation: false
+formatter.name: dot
+
+suites:
+  default:
+    namespace: Shiishiji\GooglePlacesSDK
+    psr4_prefix: Shiishiji\GooglePlacesSDK
+    spec_path: tests
+    src_path: src
+

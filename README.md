@@ -17,7 +17,7 @@ docker run --rm -t -v $PWD:/app google-places-sdk composer install
 
 Run tests
 ```shell
-docker run --rm -t -v $PWD:/app google-places-sdk vendor/bin/phpunit
+docker run --rm -t -v $PWD:/app google-places-sdk vendor/bin/phpspec run
 ```
 
 Run PHP CS fixer

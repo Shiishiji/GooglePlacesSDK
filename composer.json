@@ -16,11 +16,14 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Shiishiji\\GooglePlacesSDK\\Tests\\": "tests/"
+      "spec\\Shiishiji\\GooglePlacesSDK\\": "tests/spec/"
     }
   },
   "require": {
     "php": ">=8.1",
     "monolog/monolog": "1.0.*"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "^7.2"
   }
 }
