@@ -1,7 +1,26 @@
 {
   "name": "shiishiji/google-places-sdk",
   "version": "1.0.0",
+  "type": "library",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "shiishiji",
+      "email": "shiishiji.dev@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Shiishiji\\GooglePlacesSDK\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Shiishiji\\GooglePlacesSDK\\Tests\\": "tests/"
+    }
+  },
   "require": {
+    "php": ">=8.1",
     "monolog/monolog": "1.0.*"
   }
 }
