@@ -1,6 +1,11 @@
-SDK for GooglePlaces API
+# SDK for GooglePlaces API
 
-official google API documentation -> [here](https://developers.google.com/maps/documentation/places/web-service)
+Official google API documentation -> [here](https://developers.google.com/maps/documentation/places/web-service)
+
+### Installation
+```shell
+composer require shiishiji/google-places-sdk
+```
 
 ### Usage
 
