@@ -7,8 +7,8 @@ class Result
     public readonly ?string $businessStatus;
     public readonly Geometry $geometry;
     public readonly string $icon;
-    public readonly string $iconBackgroundColor;
-    public readonly string $iconMaskBaseUri;
+    public readonly ?string $iconBackgroundColor;
+    public readonly ?string $iconMaskBaseUri;
     public readonly string $name;
 
     /**
@@ -29,8 +29,8 @@ class Result
         ?string $businessStatus,
         Geometry $geometry,
         string $icon,
-        string $iconBackgroundColor,
-        string $iconMaskBaseUri,
+        ?string $iconBackgroundColor,
+        ?string $iconMaskBaseUri,
         string $name,
         ?iterable $photos,
         string $placeId,
