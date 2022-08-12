@@ -18,17 +18,17 @@ class NearbySearchOutput
     public function __construct(
         array $results,
         string $status,
-        array $htmlAttributions,
-        ?string $errorMessage,
-        ?array $infoMessages,
-        ?string $nextPageToken,
+        array $html_attributions,
+        ?string $error_message,
+        ?array $info_messages,
+        ?string $next_page_token,
     ) {
         $this->results = $results;
         $this->status = $status;
-        $this->htmlAttributions = $htmlAttributions;
-        $this->errorMessage = $errorMessage;
-        $this->infoMessages = $infoMessages;
-        $this->nextPageToken = $nextPageToken;
+        $this->htmlAttributions = $html_attributions;
+        $this->errorMessage = $error_message;
+        $this->infoMessages = $info_messages;
+        $this->nextPageToken = $next_page_token;
     }
 
     public function addResult(Place $result): void
