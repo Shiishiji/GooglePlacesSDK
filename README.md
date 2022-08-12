@@ -27,12 +27,6 @@ use Shiishiji\GooglePlacesSDK\Transformer\NearbySearchFiltersTransformer;
 
 $facade = new GooglePlacesFacade(
     configuration: $configuration,
-    clientFactory: new JsonClientFactory(
-        configuration: $configuration,
-    ),
-    inputTransformer: new TransformerContext([
-        new NearbySearchFiltersTransformer(), 
-    ])
 )
 ```
 

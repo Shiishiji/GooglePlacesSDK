@@ -3,10 +3,13 @@
 namespace Shiishiji\GooglePlacesSDK;
 
 use Shiishiji\GooglePlacesSDK\Client\ClientFactoryInterface;
+use Shiishiji\GooglePlacesSDK\Client\JsonClientFactory;
 use Shiishiji\GooglePlacesSDK\Config\Configuration;
 use Shiishiji\GooglePlacesSDK\DTO\Input\NearbySearchFilters;
 use Shiishiji\GooglePlacesSDK\DTO\Output\NearbySearchOutput;
 use Shiishiji\GooglePlacesSDK\Transformer\InputTransformerInterface;
+use Shiishiji\GooglePlacesSDK\Transformer\NearbySearchFiltersTransformer;
+use Shiishiji\GooglePlacesSDK\Transformer\TransformerContext;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
@@ -19,8 +22,12 @@ class GooglePlacesFacade
 {
     public function __construct(
         private readonly Configuration $configuration,
-        private readonly ClientFactoryInterface $clientFactory,
-        private readonly InputTransformerInterface $inputTransformer,
+        private ?ClientFactoryInterface $clientFactory = null,
+        private readonly InputTransformerInterface $inputTransformer = new TransformerContext(
+            inputTransformers: [
+                new NearbySearchFiltersTransformer(),
+            ],
+        ),
         private readonly SerializerInterface $serializer = new Serializer(
             normalizers: [
                 new ArrayDenormalizer(),
@@ -34,6 +41,9 @@ class GooglePlacesFacade
             ],
         ),
     ) {
+        if (null === $this->clientFactory) {
+            $this->clientFactory = new JsonClientFactory($configuration);
+        }
     }
 
     public function getNearbyPlaces(NearbySearchFilters $input): NearbySearchOutput

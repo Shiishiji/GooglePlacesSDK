@@ -10,8 +10,8 @@ use Shiishiji\GooglePlacesSDK\DTO\Input\NearbySearchFilters;
 use Shiishiji\GooglePlacesSDK\DTO\Location;
 use Shiishiji\GooglePlacesSDK\DTO\Output\Geometry;
 use Shiishiji\GooglePlacesSDK\DTO\Output\Photo;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Place;
 use Shiishiji\GooglePlacesSDK\DTO\Output\PlusCode;
-use Shiishiji\GooglePlacesSDK\DTO\Output\Result;
 use Shiishiji\GooglePlacesSDK\DTO\Output\ViewPort;
 use Shiishiji\GooglePlacesSDK\GooglePlacesFacade;
 use Shiishiji\GooglePlacesSDK\Transformer\InputTransformerInterface;
@@ -60,7 +60,7 @@ class GooglePlacesFacadeSpec extends ObjectBehavior
 
                 return !(!isset($argument['query']))
 
-                 ;
+                ;
             })
         );
 
@@ -81,7 +81,7 @@ class GooglePlacesFacadeSpec extends ObjectBehavior
 
         $output->status->shouldBe('OK');
         $output->results->shouldBeArray();
-        $output->results[0]->shouldBeAnInstanceOf(Result::class);
+        $output->results[0]->shouldBeAnInstanceOf(Place::class);
         $output->results[0]->geometry->shouldBeAnInstanceOf(Geometry::class);
         $output->results[0]->geometry->location->shouldBeAnInstanceOf(Location::class);
         $output->results[0]->geometry->viewPort->shouldBeAnInstanceOf(ViewPort::class);
