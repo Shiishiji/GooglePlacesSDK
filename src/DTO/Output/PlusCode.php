@@ -4,12 +4,14 @@ namespace Shiishiji\GooglePlacesSDK\DTO\Output;
 
 class PlusCode
 {
-    public readonly string $compoundCode;
     public readonly string $globalCode;
+    public readonly ?string $compoundCode;
 
-    public function __construct(string $compoundCode, string $globalCode)
-    {
-        $this->compoundCode = $compoundCode;
+    public function __construct(
+        string $globalCode,
+        ?string $compoundCode,
+    ) {
         $this->globalCode = $globalCode;
+        $this->compoundCode = $compoundCode;
     }
 }
