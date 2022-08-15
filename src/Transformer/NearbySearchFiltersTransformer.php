@@ -4,30 +4,14 @@ namespace Shiishiji\GooglePlacesSDK\Transformer;
 
 use Shiishiji\GooglePlacesSDK\DTO\Input\NearbySearchFilters;
 
-class NearbySearchFiltersTransformer implements InputTransformerInterface
+class NearbySearchFiltersTransformer extends AbstractTransformer
 {
-    public function transform(object $input): array
-    {
-        $transformed = [];
-        foreach ($this->getTransformationRules() as $transformationRule) {
-            $getterMethodName = $transformationRule->createGetterMethodName();
-            $fieldValue = $input->$getterMethodName();
-            if (null === $fieldValue) {
-                continue;
-            }
-
-            $transformed[$transformationRule->queryFieldName] = $fieldValue;
-        }
-
-        return $transformed;
-    }
-
     public function supports(object $input): bool
     {
         return NearbySearchFilters::class === $input::class;
     }
 
-    private function getTransformationRules(): array
+    protected function getTransformationRules(): array
     {
         return [
             new TransformationRule(objectFieldName: 'keyword', queryFieldName: 'keyword'),

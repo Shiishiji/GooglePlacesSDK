@@ -30,7 +30,9 @@ $facade = new GooglePlacesFacade(
 )
 ```
 
-3. Execute NearbySearch request
+3. Examples
+
+Execute Nearby Search request
 ```php
 use Shiishiji\GooglePlacesSDK\DTO\Input\NearbySearchFilters;
 use Shiishiji\GooglePlacesSDK\DTO\Location;
@@ -39,6 +41,21 @@ $facade->getNearbyPlaces(new NearbySearchFilters(
     location: new Location(lat: '40', lng: '-110'),
     language: 'en',
     radius: 4000, 
+));
+```
+
+
+Execute Find Place From Text request
+```php
+use Shiishiji\GooglePlacesSDK\DTO\Input\FindPlaceByTextFilters;
+use Shiishiji\GooglePlacesSDK\DTO\Input\Partials\Fields;
+
+$facade->getPlacesFromText(new FindPlaceByTextFilters(
+    input: 'Museum of Contemporary Art Australia',
+    inputType: 'textquery',
+    fields: new Fields([Fields::FORMATTED_ADDRESS, Fields::PLACE_ID]),
+    locationBias: 'ipbias',
+    language: 'en',
 ));
 ```
 

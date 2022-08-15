@@ -6,13 +6,16 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Shiishiji\GooglePlacesSDK\Client\ClientFactoryInterface;
 use Shiishiji\GooglePlacesSDK\Config\Configuration;
+use Shiishiji\GooglePlacesSDK\DTO\Input\FindPlaceByTextFilters;
 use Shiishiji\GooglePlacesSDK\DTO\Input\NearbySearchFilters;
+use Shiishiji\GooglePlacesSDK\DTO\Input\Partials\Fields;
 use Shiishiji\GooglePlacesSDK\DTO\Location;
-use Shiishiji\GooglePlacesSDK\DTO\Output\Geometry;
-use Shiishiji\GooglePlacesSDK\DTO\Output\Photo;
-use Shiishiji\GooglePlacesSDK\DTO\Output\Place;
-use Shiishiji\GooglePlacesSDK\DTO\Output\PlusCode;
-use Shiishiji\GooglePlacesSDK\DTO\Output\ViewPort;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\Geometry;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\Photo;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\Place;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\PlaceOpeningHours;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\PlusCode;
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\ViewPort;
 use Shiishiji\GooglePlacesSDK\GooglePlacesFacade;
 use Shiishiji\GooglePlacesSDK\Transformer\InputTransformerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -36,7 +39,7 @@ class GooglePlacesFacadeSpec extends ObjectBehavior
         );
     }
 
-    public function it_executes_request(
+    public function it_executes_nearby_places_request(
         HttpClientInterface $client,
         ClientFactoryInterface $clientFactory,
         InputTransformerInterface $inputTransformer,
@@ -94,5 +97,63 @@ class GooglePlacesFacadeSpec extends ObjectBehavior
         $output->results[2]->types->shouldBeArray();
         $output->results[2]->types->shouldContain('point_of_interest');
         $output->results[2]->types->shouldContain('establishment');
+    }
+
+    public function it_executes_places_from_text_request(
+        HttpClientInterface $client,
+        ClientFactoryInterface $clientFactory,
+        InputTransformerInterface $inputTransformer,
+        ResponseInterface $response,
+    ): void {
+        $clientFactory->create(Argument::type('array'))
+            ->shouldBeCalledOnce()
+            ->willReturn($client);
+
+        $inputTransformer->transform(Argument::type(FindPlaceByTextFilters::class))
+            ->willReturn([])
+            ->shouldBeCalledOnce();
+
+        $clientRequest = $client->request(
+            'GET',
+            'findplacefromtext/json',
+            Argument::that(function ($argument) {
+                if (!isset($argument['auth_bearer'])) {
+                    return false;
+                }
+
+                return !(!isset($argument['query']))
+
+                ;
+            })
+        );
+
+        $jsonResponse = '{"candidates":[{"formatted_address":"140 George St, The Rocks NSW 2000, Australia","geometry":{"location":{"lat":-33.8599358,"lng":151.2090295},"viewport":{"northeast":{"lat":-33.85824377010728,"lng":151.2104386798927},"southwest":{"lat":-33.86094342989272,"lng":151.2077390201073}}},"name":"Museum of Contemporary Art Australia","opening_hours":{"open_now":false},"rating":4.4}],"status":"OK"}';
+        $clientRequest
+            ->willReturn($response)
+            ->shouldBeCalledOnce();
+
+        $response->getContent()
+            ->willReturn($jsonResponse)
+            ->shouldBeCalledOnce();
+
+        $output = $this->getPlacesFromText(new FindPlaceByTextFilters(
+            input: 'Museum of Contemporary Art Australia',
+            inputType: 'textquery',
+            fields: new Fields([Fields::FORMATTED_ADDRESS, Fields::PLACE_ID]),
+            locationBias: 'ipbias',
+            language: 'en',
+        ));
+
+        $output->status->shouldBe('OK');
+        $output->candidates->shouldBeArray();
+        $output->candidates[0]->shouldBeAnInstanceOf(Place::class);
+        $output->candidates[0]->geometry->shouldBeAnInstanceOf(Geometry::class);
+        $output->candidates[0]->geometry->location->shouldBeAnInstanceOf(Location::class);
+        $output->candidates[0]->geometry->viewPort->shouldBeAnInstanceOf(ViewPort::class);
+        $output->candidates[0]->geometry->viewPort->northEast->shouldBeAnInstanceOf(Location::class);
+        $output->candidates[0]->geometry->viewPort->southWest->shouldBeAnInstanceOf(Location::class);
+        $output->candidates[0]->name->shouldBe('Museum of Contemporary Art Australia');
+        $output->candidates[0]->openingHours->shouldBeAnInstanceOf(PlaceOpeningHours::class);
+        $output->candidates[0]->rating->shouldBe(4.4);
     }
 }
