@@ -1,6 +1,6 @@
 <?php
 
-namespace Shiishiji\GooglePlacesSDK\DTO\Output;
+namespace Shiishiji\GooglePlacesSDK\DTO\Output\Partials;
 
 class PlaceOpeningHours
 {

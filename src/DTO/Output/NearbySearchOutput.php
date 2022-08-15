@@ -2,6 +2,8 @@
 
 namespace Shiishiji\GooglePlacesSDK\DTO\Output;
 
+use Shiishiji\GooglePlacesSDK\DTO\Output\Partials\Place;
+
 class NearbySearchOutput
 {
     /**
