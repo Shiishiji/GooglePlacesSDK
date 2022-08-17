@@ -47,57 +47,57 @@ class Place
     public ?array $reviews;
 
     public function __construct(
-        ?string $adrAddress,
-        ?string $businessStatus,
-        ?string $formattedAddress,
-        ?string $formattedPhoneNumber,
+        ?string $adr_address,
+        ?string $business_status,
+        ?string $formatted_address,
+        ?string $formatted_phone_number,
         ?Geometry $geometry,
         ?string $icon,
-        ?string $iconBackgroundColor,
-        ?string $iconMaskBaseUri,
-        ?string $internationalPhoneNumber,
+        ?string $icon_background_color,
+        ?string $icon_mask_base_uri,
+        ?string $international_phone_number,
         ?string $name,
-        ?PlaceOpeningHours $openingHours,
-        ?string $placeId,
-        ?PlusCode $plusCode,
-        ?int $priceLevel,
+        ?PlaceOpeningHours $opening_hours,
+        ?string $place_id,
+        ?PlusCode $plus_code,
+        ?int $price_level,
         float|int|null $rating,
         ?string $reference,
         ?string $scope,
         ?array $types,
         ?string $url,
-        ?int $userRatingsTotal,
-        ?int $utcOffset,
+        ?int $user_ratings_total,
+        ?int $utc_offset,
         ?string $vicinity,
         ?string $website,
-        ?array $addressComponents,
+        ?array $address_components,
         ?array $photos,
         ?array $reviews
     ) {
-        $this->adrAddress = $adrAddress;
-        $this->businessStatus = $businessStatus;
-        $this->formattedAddress = $formattedAddress;
-        $this->formattedPhoneNumber = $formattedPhoneNumber;
+        $this->adrAddress = $adr_address;
+        $this->businessStatus = $business_status;
+        $this->formattedAddress = $formatted_address;
+        $this->formattedPhoneNumber = $formatted_phone_number;
         $this->geometry = $geometry;
         $this->icon = $icon;
-        $this->iconBackgroundColor = $iconBackgroundColor;
-        $this->iconMaskBaseUri = $iconMaskBaseUri;
-        $this->internationalPhoneNumber = $internationalPhoneNumber;
+        $this->iconBackgroundColor = $icon_background_color;
+        $this->iconMaskBaseUri = $icon_mask_base_uri;
+        $this->internationalPhoneNumber = $international_phone_number;
         $this->name = $name;
-        $this->openingHours = $openingHours;
-        $this->placeId = $placeId;
-        $this->plusCode = $plusCode;
-        $this->priceLevel = $priceLevel;
+        $this->openingHours = $opening_hours;
+        $this->placeId = $place_id;
+        $this->plusCode = $plus_code;
+        $this->priceLevel = $price_level;
         $this->rating = $rating;
         $this->reference = $reference;
         $this->scope = $scope;
         $this->types = $types;
         $this->url = $url;
-        $this->userRatingsTotal = $userRatingsTotal;
-        $this->utcOffset = $utcOffset;
+        $this->userRatingsTotal = $user_ratings_total;
+        $this->utcOffset = $utc_offset;
         $this->vicinity = $vicinity;
         $this->website = $website;
-        $this->addressComponents = $addressComponents;
+        $this->addressComponents = $address_components;
         $this->photos = $photos;
         $this->reviews = $reviews;
     }
