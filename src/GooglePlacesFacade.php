@@ -37,7 +37,7 @@ class GooglePlacesFacade
                 new ArrayDenormalizer(),
                 new ObjectNormalizer(
                     nameConverter: new CamelCaseToSnakeCaseNameConverter(),
-                    propertyTypeExtractor: new ReflectionExtractor(),
+                    propertyTypeExtractor: new ReflectionExtractor(enableConstructorExtraction: true),
                 ),
             ],
             encoders: [
