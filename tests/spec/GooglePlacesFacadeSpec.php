@@ -127,7 +127,8 @@ class GooglePlacesFacadeSpec extends ObjectBehavior
             })
         );
 
-        $jsonResponse = '{"candidates":[{"formatted_address":"140 George St, The Rocks NSW 2000, Australia","geometry":{"location":{"lat":-33.8599358,"lng":151.2090295},"viewport":{"northeast":{"lat":-33.85824377010728,"lng":151.2104386798927},"southwest":{"lat":-33.86094342989272,"lng":151.2077390201073}}},"name":"Museum of Contemporary Art Australia","opening_hours":{"open_now":false},"rating":4.4}],"status":"OK"}';
+        $jsonResponse = '{"candidates":[{"formatted_address":"140 George St, The Rocks NSW 2000, Australia","geometry":{"location":{"lat":-33.8599358,"lng":151.2090295},"viewport":{"northeast":{"lat":-33.85824377010728,"lng":151.2104386798927},"southwest":{"lat":-33.86094342989272,"lng":151.2077390201073}}},"name":"Museum of Contemporary Art Australia","icon_mask_base_uri":"http://example.com","place_id":"1db87sb7f6gdsagd8f2fg8","opening_hours":{"open_now":false},"rating":4.4}],"status":"OK"}';
+
         $clientRequest
             ->willReturn($response)
             ->shouldBeCalledOnce();
@@ -153,6 +154,7 @@ class GooglePlacesFacadeSpec extends ObjectBehavior
         $output->candidates[0]->geometry->viewPort->northEast->shouldBeAnInstanceOf(Location::class);
         $output->candidates[0]->geometry->viewPort->southWest->shouldBeAnInstanceOf(Location::class);
         $output->candidates[0]->name->shouldBe('Museum of Contemporary Art Australia');
+        $output->candidates[0]->formattedAddress->shouldBe('140 George St, The Rocks NSW 2000, Australia');
         $output->candidates[0]->openingHours->shouldBeAnInstanceOf(PlaceOpeningHours::class);
         $output->candidates[0]->rating->shouldBe(4.4);
     }
